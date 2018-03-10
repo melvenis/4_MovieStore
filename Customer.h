@@ -5,11 +5,9 @@ using namespace std;
 class Customer
 {
 public:
-	Customer();
+	Customer(string);
 	~Customer();
 	void displayHistory();
-	bool addTransaction(Transaction);
-	bool isBorrowed(Movie);
 	int getID();
 private:
 	int id;

@@ -1,10 +1,10 @@
 #pragma once
 #include "Action.h"
-class Return : public Action
+class History : public Action
 {
 public:
-	Return();
-	~Return();
+	History();
+	~History();
 	void doAction();
 };
 

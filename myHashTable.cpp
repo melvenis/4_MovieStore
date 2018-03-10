@@ -3,23 +3,22 @@
 //constructor, initialize size, at null
 myHashTable::myHashTable()
 {
-	accnts = new Customer*[initSize];
+	accnts = new Customer*[MAXSIZE];
 	size = 0;
-	capacity, b = initSize;
-	r = initR;
+	b = MAXSIZE + 1;
 }
 
 //deconstructor
 myHashTable::~myHashTable()
 {
 	//destroy all customer in hash table
-	for (int i = 0; i < size; i++) {
+	for (int i = 0; i < MAXSIZE; i++) {
 		accnts[i] = NULL;
 	}
 	delete[] accnts; //free memory
 }
 
-//amount of customers
+//amount of customer accounts
 int myHashTable::getSize()
 {
 	return size;
@@ -28,13 +27,13 @@ int myHashTable::getSize()
 //total capacity of hash table
 int myHashTable::getCapacity()
 {
-	return capacity;
+	return b;
 }
 
 //returns the % hashtableis full
 int myHashTable::getSpace()
 {
-	float space = 1.0 * capacity / size;
+	float space = 1.0 * b / size;
 	//rounding is negligible
 	return static_cast<int>(100 * space); 
 }
@@ -94,32 +93,9 @@ Customer* myHashTable::getAccnt(int id)
 	}
 }
 
-void myHashTable::resize(int capacity, int size)
-{
-
-}
-
 int myHashTable::hash(int id, int collisions)
 {
-	int h2 = collisions * (r - (id % r));
+	int h2 = collisions * (R - (id % R));
 	return (id + h2) % b;
-	
-	
-	
-	//int hash, h2;
-	//bool open = false; //found open slot
-
-	//while (true) //loop until open space found
-	//{
-	//	h2 = collisions * (r - (id % r));
-	//	hash = (id + h2) % b;
-	//	if (accnts[hash] == NULL)
-	//	{
-	//		return hash; //found index space
-	//	}
-	//	else
-	//	{
-	//		i++; //add collision
-	//	}	
 }
 

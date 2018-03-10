@@ -1,9 +1,11 @@
 #include "Customer.h"
+#include <iostream>
+using namespace std;
 
-
-
-Customer::Customer()
+Customer::Customer(string input)
 {
+	//id = first 4 digits;
+	//name = last 2 words;
 }
 
 
@@ -13,16 +15,11 @@ Customer::~Customer()
 
 void Customer::displayHistory()
 {
-}
-
-bool Customer::addTransaction(Transaction)
-{
-	return false;
-}
-
-bool Customer::isBorrowed(Movie)
-{
-	return false;
+	while (!history.empty())
+	{
+		cout << history.front() << endl;
+		history.pop_front();
+	}
 }
 
 int Customer::getID()

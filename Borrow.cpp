@@ -10,3 +10,7 @@ Borrow::Borrow()
 Borrow::~Borrow()
 {
 }
+
+void Borrow::doAction()
+{
+}

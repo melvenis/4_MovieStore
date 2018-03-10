@@ -1,10 +1,10 @@
 #pragma once
 #include "Action.h"
-class Return : public Action
+class Inventory : public Action
 {
 public:
-	Return();
-	~Return();
+	Inventory();
+	~Inventory();
 	void doAction();
 };
 
