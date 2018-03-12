@@ -16,6 +16,21 @@ int Movie::getStock()
 	return stock;
 }
 
+int Movie::getRemaining()
+{
+	return remaining;
+}
+
+void Movie::rent()
+{
+	remaining--;
+}
+
+void Movie::turnIn()
+{
+	remaining++;
+}
+
 string Movie::getIndex()
 {
 	return indexer;

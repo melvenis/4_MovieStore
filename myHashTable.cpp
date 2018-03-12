@@ -1,6 +1,5 @@
 #pragma once
 #include "myHashTable.h"
-
 template<class V>
 myHashTable<V>::myHashTable()
 {
@@ -9,7 +8,6 @@ myHashTable<V>::myHashTable()
 	{
 		entries[i] = NULL;
 	}
-	int* abc = new int[10];
 	size = 0;
 	b = MAXSIZE + 1;
 }
@@ -36,6 +34,33 @@ int myHashTable<V>::getSpace()
 	return static_cast<int>(100 * space);
 }
 
+
+
+
+
+template<class V>
+bool myHashTable<V>::add(V* entry)
+{
+	int i = 0; //colisions
+	int hash;
+	while (true)
+	{
+		hash = Hash::hash(entry, i, b, R);
+		if (entries[hash] == NULL) //open space
+		{
+			size++;
+			entries[hash] = entry;
+			return true;
+		}
+		if (entries[hash] != NULL) {
+			cout << "COLLISION!!!!" << endl;
+		}
+		i++; //collision found, find next space
+	}
+}
+
+
+
 template<class V>
 bool myHashTable<V>::contains(V * entry)
 {
@@ -50,29 +75,16 @@ bool myHashTable<V>::contains(V * entry)
 		}
 		if (*entry == *entries[hash])
 		{
+			entry = entries[hash];
 			return true;
 		}
 		i++; //collision found, continue search
 	}
 }
 
-template<class V>
-bool myHashTable<V>::add(V* entry)
-{
-	int i = 0; //colisions
-	int hash;
-	while (true)
-	{
-		hash = Hash::hash(entry, i, b, R);
-		if (entries[hash] == NULL) //open space
-		{
-			entries[hash] = entry;
-			size++;
-			return true;
-		}
-		i++; //collision found, find next space
-	}
-}
+
+
+
 
 //THIS ONE MAKES NO SENSE
 //*********
@@ -82,19 +94,12 @@ V * myHashTable<V>::getEntry(int id)
 {
 	int i = 0;
 	int hash;
-	while (true)
+	hash = Hash::hash(id, i, b, R);
+	if (entries[hash] == NULL) //open slot
 	{
-		hash = Hash::hash(id, i, b, R);
-		if (entries[hash] == NULL) //open slot
-		{
-			return NULL; //not found
-		}
-		if (id == entries[hash]->getID())
-		{
-			return entries[hash]; //customer found
-		}
-		i++; //collision found, continue search
+		return NULL; //not found
 	}
+	return entries[hash];
 }
 
 template<class V>

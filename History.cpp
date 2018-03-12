@@ -8,6 +8,7 @@ History::~History()
 {
 }
 
-void History::doAction()
+void History::doAction(string, map<string, Movie*>&, myHashTable<Customer>&)
 {
 }
+

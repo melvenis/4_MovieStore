@@ -6,11 +6,10 @@
 Drama::Drama(string input)
 {
 	stringstream info(input);
-	string rmSpace; //remove unwanted whitespace
 	info >> stock;
-	getline(info, rmSpace, ' ');
+	remaining = stock; //none borrowed
+	info.ignore(); //remove whitespace
 	getline(info, director, ',');
-	getline(info, rmSpace, ' ');
 	getline(info, title, ',');
 	info >> year;
 	indexer = DRAMA;
@@ -36,6 +35,13 @@ void Drama::display()
 {
 	cout << "D, " << stock << ", " << director
 		<< ", " << title << ", " << year << endl;
+}
+
+string Drama::transDisplay()
+{
+	string tran = "F, " + director + ", " + title
+		+ ", " + to_string(year);
+	return tran;
 }
 
 //destructor

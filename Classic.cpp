@@ -4,16 +4,18 @@
 Classic::Classic(string input)
 {
 	stringstream info(input);
-	string rmSpace; //remove unwanted whitespace
+	string temp;
 	info >> stock;
-	getline(info, rmSpace, ' ');
+	remaining = stock; //none borrowed
+	info.ignore();
+	info.ignore();
 	getline(info, director, ',');
-	getline(info, rmSpace, ' ');
+	info.ignore();
 	getline(info, title, ',');
-	getline(info, rmSpace, ' ');
+	info.ignore();
 	getline(info, actor, ' ');
-	getline(info, rmSpace, ' '); //gets last name
-	actor.append(rmSpace); //combine name
+	getline(info, temp, ' '); //gets last name
+	actor += " " + temp; //combine name
 	info >> month;
 	info >> year;
 	generateIndex();
@@ -51,8 +53,15 @@ bool Classic::operator==(Classic)
 void Classic::display()
 {
 	cout << "C, " << stock << ", " << director
-		<< ", " << title << ", " << actor << ", "
+		<< ", " << title << ", " << actor << " "
 		<< month << " " << year << endl;
+}
+
+string Classic::transDisplay()
+{
+	string tran = "C, " + director + ", " + title + ", " + actor +
+		" " + to_string(month) + " " + to_string(year);
+	return tran;
 }
 
 Classic::~Classic()

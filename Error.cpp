@@ -8,6 +8,6 @@ Error::~Error()
 {
 }
 
-void Error::doAction()
+void Error::doAction(string, map<string, Movie*>&, myHashTable<Customer>&)
 {
 }

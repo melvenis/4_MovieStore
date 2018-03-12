@@ -16,11 +16,9 @@ public:
 	void addMovie(string);
 	void remMovie(string);
 	void addCustomer(string);
-	void remCustomer(string);
-	void inventory();
+	Customer* remCustomer(int);
 private:
 	myHashTable<Customer> accounts;
 	map<string, Movie*> movies;
-	map<char, int> tester;
 };
 

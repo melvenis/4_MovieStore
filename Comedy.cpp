@@ -5,11 +5,12 @@
 Comedy::Comedy(string input)
 {
 	stringstream info(input);
-	string rmSpace; //remove unwanted whitespace
 	info >> stock;
-	getline(info, rmSpace, ' ');
+	remaining = stock; //none borrowed
+	info.ignore(); //ignore whitespace
+	info.ignore();
 	getline(info, director, ',');//set director
-	getline(info, rmSpace, ' ');
+	info.ignore();
 	getline(info, title, ','); //set title
 	info >> year; //set year
 	indexer = COMEDY; //map reference
@@ -35,6 +36,13 @@ void Comedy::display()
 {
 	cout << "F, " << stock << ", " << director
 		<< ", " << title << ", " << year << endl;
+}
+
+string Comedy::transDisplay()
+{
+	string tran = "F, " + director + ", " + title 
+		+ ", " + to_string(year);
+	return tran;
 }
 
 //destructor

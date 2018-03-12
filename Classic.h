@@ -3,7 +3,7 @@
 #include <sstream>
 #include <iostream>
 
-const string CLASSIC = "66"; //value for sorting genres
+
 class Classic : public Movie
 {
 public:
@@ -12,7 +12,8 @@ public:
 	bool operator<(Classic);
 	bool operator>(Classic);
 	bool operator==(Classic);
-	void display();
+	void display(); //standard display with stock
+	string transDisplay(); //display for transactions
 private:
 	string director;
 	string actor;
