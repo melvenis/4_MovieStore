@@ -1,101 +1,109 @@
+#pragma once
 #include "myHashTable.h"
 
-//constructor, initialize size, at null
-myHashTable::myHashTable()
+template<class V>
+myHashTable<V>::myHashTable()
 {
-	accnts = new Customer*[MAXSIZE];
+	entries = new V*[MAXSIZE];
+	for (int i = 0; i < MAXSIZE; i++)
+	{
+		entries[i] = NULL;
+	}
+	int* abc = new int[10];
 	size = 0;
 	b = MAXSIZE + 1;
 }
 
-//deconstructor
-myHashTable::~myHashTable()
-{
-	//destroy all customer in hash table
-	for (int i = 0; i < MAXSIZE; i++) {
-		accnts[i] = NULL;
-	}
-	delete[] accnts; //free memory
-}
 
-//amount of customer accounts
-int myHashTable::getSize()
+
+template<class V>
+int myHashTable<V>::getSize()
 {
 	return size;
 }
 
-//total capacity of hash table
-int myHashTable::getCapacity()
+template<class V>
+int myHashTable<V>::getCapacity()
 {
 	return b;
 }
 
-//returns the % hashtableis full
-int myHashTable::getSpace()
+template<class V>
+int myHashTable<V>::getSpace()
 {
-	float space = 1.0 * b / size;
+	double space = 1.0 * b / size;
 	//rounding is negligible
-	return static_cast<int>(100 * space); 
+	return static_cast<int>(100 * space);
 }
 
-//searches for customer via id
-bool myHashTable::contains(int id)
+template<class V>
+bool myHashTable<V>::contains(V * entry)
 {
-	int collisions = 0;
+	int i = 0; //collisions
 	int hash;
 	while (true)
 	{
-		hash = myHashTable::hash(id, collisions);
-		if (accnts[hash] == NULL) //open space
+		hash = Hash::hash(entry, i, b, R);
+		if (entries[hash] == NULL) //open space
 		{
 			return false; //no match found
 		}
-		if (id == accnts[hash]->getID)
+		if (*entry == *entries[hash])
 		{
 			return true;
 		}
-		collisions++; //collision found, continue search
+		i++; //collision found, continue search
 	}
 }
 
-bool myHashTable::add(Customer* cust)
+template<class V>
+bool myHashTable<V>::add(V* entry)
 {
-	int collisions = 0;
+	int i = 0; //colisions
 	int hash;
 	while (true)
 	{
-		hash = myHashTable::hash(cust->getID, collisions);
-		if (accnts[hash] == NULL) //open space
+		hash = Hash::hash(entry, i, b, R);
+		if (entries[hash] == NULL) //open space
 		{
-			accnts[hash] = cust;
+			entries[hash] = entry;
+			size++;
 			return true;
 		}
-		collisions++; //collision found, find next space
+		i++; //collision found, find next space
 	}
 }
 
-Customer* myHashTable::getAccnt(int id)
+//THIS ONE MAKES NO SENSE
+//*********
+//*********
+template<class V>
+V * myHashTable<V>::getEntry(int id)
 {
-	int collisions = 0;
+	int i = 0;
 	int hash;
 	while (true)
 	{
-		hash = myHashTable::hash(id, collisions);
-		if (accnts[hash] == NULL) //open slot
+		hash = Hash::hash(id, i, b, R);
+		if (entries[hash] == NULL) //open slot
 		{
 			return NULL; //not found
 		}
-		if (id == accnts[hash]->getID)
+		if (id == entries[hash]->getID())
 		{
-			return accnts[hash]; //customer found
+			return entries[hash]; //customer found
 		}
-		collisions++; //collision found, continue search
+		i++; //collision found, continue search
 	}
 }
 
-int myHashTable::hash(int id, int collisions)
+template<class V>
+myHashTable<V>::~myHashTable()
 {
-	int h2 = collisions * (R - (id % R));
-	return (id + h2) % b;
+	//destroy all entries in hash table
+	for (int i = 0; i < MAXSIZE; i++) 
+	{
+		entries[i] = NULL;
+	}
+	delete[] entries; //free memory
 }
-

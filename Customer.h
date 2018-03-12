@@ -9,10 +9,19 @@ public:
 	~Customer();
 	void displayHistory();
 	int getID();
+	bool operator==(Customer);
+
+	/*
+	*
+	*
+	* Tester method
+	*/
+	void display();
+
 private:
 	int id;
 	string name;
 	list<string> history;
-
+	
 };
 

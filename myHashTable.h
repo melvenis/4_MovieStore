@@ -1,23 +1,26 @@
 #pragma once
 #include "Customer.h"
+#include "Hash.h"
 
 const int MAXSIZE = 10006; 
-const int R;
+const int R = 6007;
+template <class V>
 class myHashTable
 {
 public:
 	myHashTable();
 	~myHashTable();
-	int getSize(); //number of accounts stored
+	int getSize(); //number of stored items
 	int getCapacity(); //the capacity of table
 	int getSpace(); //the remaining space in table
-	bool contains(int); //search for customer
-	bool add(Customer*); //adds new customer
-	Customer* getAccnt(int); //returns customer
+	bool contains(V*); //search for value
+	bool add(V*); //adds new value
+	V* getEntry(int); //returns value
 private:
-	int b; //number to hash
-	Customer** accnts; //table of customer accnts
+	int b; //number to mod in hashing
+	V** entries; //table of entries
 	int size; //accounts in table
-	int hash(int, int); //generates index in array
+
 };
+
 

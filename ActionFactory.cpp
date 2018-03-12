@@ -26,6 +26,8 @@ Action * ActionFactory::create(string input)
 		break;
 	case 'R': a = new Return();
 		break;
+	default: a = new Error();
+		break;
 	}
 	return a;
 }

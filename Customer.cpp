@@ -1,16 +1,20 @@
 #include "Customer.h"
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 Customer::Customer(string input)
 {
-	//id = first 4 digits;
-	//name = last 2 words;
+	stringstream line(input);
+	line >> id;
+	getline(line, name, ' ');//flush whitespace
+	getline(line, name);
 }
 
 
 Customer::~Customer()
 {
+	history.clear();
 }
 
 void Customer::displayHistory()
@@ -24,5 +28,15 @@ void Customer::displayHistory()
 
 int Customer::getID()
 {
-	return 0;
+	return id;
+}
+
+bool Customer::operator==(Customer c)
+{
+	return (id == c.id && name == c.name);
+}
+
+void Customer::display()
+{
+	cout << id << " " << name << endl;
 }

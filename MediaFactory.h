@@ -4,6 +4,6 @@ class MediaFactory
 public:
 	MediaFactory();
 	~MediaFactory();
-	Media public createMedia(char);
+	/*Media static createMedia(char);*/
 };
 
